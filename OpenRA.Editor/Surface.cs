@@ -328,13 +328,17 @@ namespace OpenRA.Editor
 		System.Random r = new System.Random();
 		void DrawWithResource()
 		{
-			Map.MapResources[GetBrushLocation().X, GetBrushLocation().Y]
-				= new TileReference<byte, byte>
-				{
-					type = (byte)Resource.Info.ResourceType,
-					index = (byte)r.Next(Resource.Info.SpriteNames.Length),
-					image = (byte)Resource.Value
-				};
+                try
+                {
+                Map.MapResources[GetBrushLocation().X, GetBrushLocation().Y]
+                    = new TileReference<byte, byte>
+                    {
+                        type = (byte)Resource.Info.ResourceType,
+                        index = (byte)r.Next(Resource.Info.SpriteNames.Length),
+                        image = (byte)Resource.Value
+                    };
+                }
+                catch{}
 
 			var ch = new int2((GetBrushLocation().X) / ChunkSize, (GetBrushLocation().Y) / ChunkSize);
 			if (Chunks.ContainsKey(ch))
